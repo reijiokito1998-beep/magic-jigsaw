@@ -1,0 +1,119 @@
+# Alert rules for jigsaw-backend.
+#
+# Each rule targets a symptom a player would notice or an operator must act on.
+# Thresholds are starting points — tune them against a week of real traffic
+# rather than treating them as absolutes.
+groups:
+  - name: availability
+    rules:
+      - alert: ApiDown
+        expr: up{job="jigsaw-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "API instance {{ $labels.instance }} is not scrapeable"
+          description: "Prometheus cannot reach /metrics. The process is down, wedged, or the network path broke."
+
+      - alert: NotReady
+        # The readiness probe returning 503 means a dependency (database) is
+        # unavailable while the process itself is alive.
+        expr: |
+          sum(rate(jigsaw_http_requests_total{route="/readyz",status="503"}[5m])) > 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Readiness probe failing"
+          description: "/readyz is returning 503; a hard dependency is down. Check jigsaw_db_* metrics."
+
+  - name: errors
+    rules:
+      - alert: HighServerErrorRate
+        # Ratio, not absolute count, so the alert holds at any traffic level.
+        expr: |
+          sum(rate(jigsaw_http_requests_total{status=~"5.."}[5m]))
+            /
+          sum(rate(jigsaw_http_requests_total[5m])) > 0.02
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "5xx rate above 2%"
+          description: "{{ $value | humanizePercentage }} of requests are failing with a server error."
+
+      - alert: HandlerPanics
+        # A panic is always a bug; there is no acceptable rate.
+        expr: increase(jigsaw_http_panics_total[10m]) > 0
+        labels:
+          severity: critical
+        annotations:
+          summary: "Handler panic on {{ $labels.route }}"
+          description: "A handler panicked and was recovered. Find the stack trace by request_id in the logs."
+
+  - name: latency
+    rules:
+      - alert: HighLatencyP95
+        expr: |
+          histogram_quantile(0.95,
+            sum by (le) (rate(jigsaw_http_request_duration_seconds_bucket{route!~"/metrics|/healthz|/readyz"}[5m]))
+          ) > 1
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "p95 latency above 1s"
+          description: "p95 is {{ $value | humanizeDuration }}. Check jigsaw_db_connections_acquired against jigsaw_db_connections_max first."
+
+  - name: saturation
+    rules:
+      - alert: DatabasePoolExhausted
+        # Acquisitions that had to wait mean requests are queueing on the pool,
+        # which shows up as latency long before any error.
+        expr: rate(jigsaw_db_acquires_empty_total[5m]) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Database connection pool is saturated"
+          description: "Connections are being waited on. Raise DB_MAX_CONNS, add PgBouncer, or fix the slow queries holding connections."
+
+      - alert: RateLimitSurge
+        expr: sum(rate(jigsaw_http_rate_limited_total[5m])) > 5
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Sustained rate limiting ({{ $labels.scope }})"
+          description: "Either a client is misbehaving/abusive, or the configured limits are too tight for real traffic."
+
+  - name: business
+    rules:
+      - alert: PurchaseVerificationFailing
+        # Failures here mean players paid and were not credited: revenue impact,
+        # not just an error-rate blip.
+        expr: |
+          sum(rate(jigsaw_purchase_verifications_total{result!="success"}[15m]))
+            /
+          clamp_min(sum(rate(jigsaw_purchase_verifications_total[15m])), 0.001) > 0.1
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: "In-app purchase verification failing"
+          description: "{{ $value | humanizePercentage }} of verifications are failing. Players may be paying without being credited. Check store credentials."
+
+      - alert: LoginFailureSpike
+        # A jump in failed logins with flat successes is the signature of
+        # credential stuffing.
+        expr: |
+          sum(rate(jigsaw_auth_events_total{event="login",result="failure"}[5m])) > 5
+            and
+          sum(rate(jigsaw_auth_events_total{event="login",result="failure"}[5m]))
+            > 3 * sum(rate(jigsaw_auth_events_total{event="login",result="success"}[5m]))
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Login failures greatly exceed successes"
+          description: "Possible credential stuffing. Check the client IPs in the access log and consider tightening LOGIN_RATE_PER_HOUR."

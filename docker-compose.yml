@@ -1,0 +1,87 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: jigsaw
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD required}
+      POSTGRES_DB: jigsaw
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jigsaw"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # api:
+  #   build: .
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   environment:
+  #     PORT: "8080"
+  #     DATABASE_URL: postgres://jigsaw:${POSTGRES_PASSWORD:?POSTGRES_PASSWORD required}@db:5432/jigsaw?sslmode=disable
+  #     JWT_SECRET: ${JWT_SECRET:?JWT_SECRET required}
+  #     JWT_TTL: "24h"
+  #     ADMIN_EMAILS: ${ADMIN_EMAILS}
+  #     CLOUDINARY_URL: ${CLOUDINARY_URL}
+  #     CLOUDINARY_FOLDER: "jigsaw"
+  #     # Comma-separated allow-list of origins allowed to call the API.
+  #     # Do NOT use "*" in production - set an explicit allow-list, e.g.:
+  #     # CORS_ORIGINS: "https://app.example.com,https://admin.example.com"
+  #     CORS_ORIGINS: ${CORS_ORIGINS}
+  #   ports:
+  #     - "8080:8080"
+
+  # --- Observability -------------------------------------------------------
+  # Both services are provisioned from files under deploy/, so the stack comes
+  # up already wired: no clicking through the Grafana UI to add a datasource.
+  #
+  #   docker compose up -d prometheus grafana
+  #   Prometheus  http://localhost:9090   (targets, alerts, ad-hoc PromQL)
+  #   Grafana     http://localhost:3000   (admin / admin — dashboard "Jigsaw")
+  #
+  # Prometheus scrapes host.docker.internal:8080 by default, i.e. the API run on
+  # the host with `make run`. If you enable the api service above, change the
+  # target in deploy/prometheus/prometheus.yml to "api:8080".
+  prometheus:
+    image: prom/prometheus:v3.6.0
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      # 15 days is plenty for local debugging and keeps the volume small.
+      - --storage.tsdb.retention.time=15d
+      - --web.enable-lifecycle
+    volumes:
+      - ./deploy/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./deploy/prometheus/alerts.yml:/etc/prometheus/alerts.yml:ro
+      - promdata:/prometheus
+    ports:
+      - "9090:9090"
+    extra_hosts:
+      # Required on Linux; a no-op on Docker Desktop where it already resolves.
+      - "host.docker.internal:host-gateway"
+
+  grafana:
+    image: grafana/grafana:12.2.0
+    depends_on:
+      - prometheus
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin}
+      # Local-only convenience; never enable anonymous access on a public host.
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_ANALYTICS_REPORTING_ENABLED: "false"
+    volumes:
+      - ./deploy/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./deploy/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafanadata:/var/lib/grafana
+    ports:
+      - "3000:3000"
+
+volumes:
+  dbdata:
+  promdata:
+  grafanadata:

@@ -1,0 +1,15 @@
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    # Fixed uid so the provisioned dashboards can reference it by name.
+    uid: jigsaw-prometheus
+    url: http://prometheus:9090
+    isDefault: true
+    jsonData:
+      # Must match prometheus.yml's scrape_interval so rate() windows and
+      # Grafana's $__rate_interval agree.
+      timeInterval: 15s
+      httpMethod: POST

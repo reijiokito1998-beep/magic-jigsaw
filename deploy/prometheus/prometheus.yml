@@ -1,0 +1,30 @@
+# Prometheus scrape configuration for jigsaw-backend.
+global:
+  # 15s is the standard trade-off: fast enough to see an incident start,
+  # cheap enough to retain locally for weeks.
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    env: local
+
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+scrape_configs:
+  - job_name: jigsaw-backend
+    metrics_path: /metrics
+    # If METRICS_TOKEN is set on the API, uncomment and match it:
+    # authorization:
+    #   type: Bearer
+    #   credentials: <METRICS_TOKEN>
+    static_configs:
+      # host.docker.internal reaches the API running on the host (`make run`)
+      # from inside the Prometheus container on Docker Desktop.
+      # When the API runs as a compose service instead, use "api:8080".
+      - targets: ["host.docker.internal:8080"]
+        labels:
+          instance: local-api
+
+  - job_name: prometheus
+    static_configs:
+      - targets: ["localhost:9090"]

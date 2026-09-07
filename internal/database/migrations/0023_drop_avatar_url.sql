@@ -1,0 +1,14 @@
+-- Drops users.avatar_url. Nothing ever wrote it: the column was inherited from
+-- the original Google Sign-In schema (0001_init), which populated it from the
+-- Google profile. Since 0002_password_auth the app registers with
+-- email/password only, so every row carries the '' default and both the
+-- profile screen and the leaderboard always fell through to their placeholder
+-- icon. Serving a column that is provably empty is dead weight in every /me
+-- and /leaderboard response.
+--
+-- IF EXISTS keeps this idempotent: Migrate() re-runs every file on each boot.
+-- Note 0001_init still lists avatar_url in its CREATE TABLE, which is harmless
+-- because that statement is IF NOT EXISTS and the table already exists; a
+-- database created from scratch gets the column and then immediately drops it
+-- here.
+ALTER TABLE users DROP COLUMN IF EXISTS avatar_url;

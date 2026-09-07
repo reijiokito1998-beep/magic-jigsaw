@@ -1,0 +1,3628 @@
+basePath: /
+definitions:
+  api.addToCollectionRequest:
+    properties:
+      imageId:
+        type: string
+    type: object
+  api.adminChallengesResponse:
+    properties:
+      challenges:
+        items:
+          $ref: '#/definitions/models.AdminChallengeView'
+        type: array
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.adminDungeonRequest:
+    properties:
+      active:
+        type: boolean
+      monsters:
+        items:
+          $ref: '#/definitions/models.DungeonMonsterInput'
+        type: array
+      path:
+        items:
+          $ref: '#/definitions/models.Cell'
+        type: array
+      start:
+        $ref: '#/definitions/models.Cell'
+      title:
+        type: string
+      treasure:
+        $ref: '#/definitions/models.Cell'
+      treasureGridCols:
+        type: integer
+      treasureGridRows:
+        type: integer
+      treasureImageId:
+        type: string
+      treasurePlaySeconds:
+        type: integer
+      xpReward:
+        type: integer
+    type: object
+  api.adminDungeonsResponse:
+    properties:
+      dungeons:
+        items:
+          $ref: '#/definitions/models.AdminDungeon'
+        type: array
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.adminExpeditionConfigRequest:
+    properties:
+      category:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      playSeconds:
+        type: integer
+      showOnMain:
+        description: |-
+          ShowOnMain is a pointer so an older admin build, which does not send the
+          field, leaves the level on the map instead of silently hiding it.
+        type: boolean
+      star:
+        type: integer
+      xpReward:
+        type: integer
+    type: object
+  api.adminExpeditionLevel:
+    properties:
+      category:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      hasImage:
+        type: boolean
+      imageUrl:
+        type: string
+      index:
+        type: integer
+      playSeconds:
+        type: integer
+      showOnMain:
+        description: |-
+          ShowOnMain false hides the level from the campaign map and puts it in
+          the collection named by Category instead.
+        type: boolean
+      star:
+        type: integer
+      thumbUrl:
+        description: ThumbURL is [ImageURL] sized for the admin grid tile.
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  api.adminExpeditionResponse:
+    properties:
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      levels:
+        items:
+          $ref: '#/definitions/api.adminExpeditionLevel'
+        type: array
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.adminHiddenSecretRequest:
+    properties:
+      active:
+        type: boolean
+      imageId:
+        type: string
+      subtitle:
+        type: string
+      tileGridCols:
+        type: integer
+      tileGridRows:
+        type: integer
+      tilePlaySeconds:
+        type: integer
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  api.adminHiddenSecretsResponse:
+    properties:
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      secrets:
+        items:
+          $ref: '#/definitions/models.AdminHiddenSecret'
+        type: array
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.adminStoryConfigRequest:
+    properties:
+      levelRequired:
+        type: integer
+    type: object
+  api.answerQuizRequest:
+    properties:
+      option:
+        description: 0 = A, 1 = B
+        type: integer
+    type: object
+  api.authResponse:
+    properties:
+      token:
+        type: string
+      user:
+        $ref: '#/definitions/models.User'
+    type: object
+  api.challengeQuizResponse:
+    properties:
+      answered:
+        type: boolean
+      answeredOption:
+        description: -1 while unanswered
+        type: integer
+      correct:
+        description: meaningful once answered
+        type: boolean
+      correctOption:
+        description: -1 until answered
+        type: integer
+      optionA:
+        type: string
+      optionB:
+        type: string
+      pointsEarned:
+        description: this call only
+        type: integer
+      question:
+        type: string
+      unlockPoints:
+        description: resulting balance
+        type: integer
+    type: object
+  api.challengesResponse:
+    properties:
+      challenges:
+        items:
+          $ref: '#/definitions/models.DailyChallenge'
+        type: array
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.collectionResponse:
+    properties:
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      items:
+        items:
+          $ref: '#/definitions/models.CollectionItem'
+        type: array
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.completeChallengeRequest:
+    properties:
+      correctPieces:
+        description: defaults to full grid when omitted
+        type: integer
+      elapsedSeconds:
+        type: integer
+    type: object
+  api.completeChallengeResponse:
+    properties:
+      challengeId:
+        type: string
+      correctPieces:
+        type: integer
+      elapsedSeconds:
+        type: integer
+      finishedAt:
+        type: string
+      hasQuiz:
+        description: HasQuiz tells the client to offer the bonus question on the win
+          screen.
+        type: boolean
+      id:
+        type: string
+      level:
+        type: integer
+      pointsEarned:
+        description: |-
+          PointsEarned is the unlock points this completion paid out (1 on the
+          first completion, 0 on a repeat call), and UnlockPoints the resulting
+          balance. Completing a daily challenge used to add an expedition star.
+        type: integer
+      quizAnswer:
+        description: |-
+          QuizAnswer is the option the user picked for the bonus question (0 or 1),
+          nil while unanswered. The bonus point is granted on the single
+          transition from nil to a value.
+        type: integer
+      startedAt:
+        type: string
+      status:
+        type: string
+      unlockPoints:
+        type: integer
+      xp:
+        type: integer
+      xpEarned:
+        type: integer
+      xpForNextLevel:
+        type: integer
+      xpIntoLevel:
+        type: integer
+    type: object
+  api.confirmPurchaseRequest:
+    properties:
+      productId:
+        type: string
+      source:
+        type: string
+      verificationData:
+        type: string
+    type: object
+  api.dungeonCompleteResponse:
+    properties:
+      completed:
+        type: boolean
+      level:
+        type: integer
+      status:
+        type: string
+      xp:
+        type: integer
+      xpEarned:
+        type: integer
+      xpForNextLevel:
+        type: integer
+      xpIntoLevel:
+        type: integer
+    type: object
+  api.dungeonDefeatResponse:
+    properties:
+      defeated:
+        items:
+          type: string
+        type: array
+    type: object
+  api.dungeonMoveRequest:
+    properties:
+      col:
+        type: integer
+      row:
+        type: integer
+    type: object
+  api.dungeonMoveResponse:
+    properties:
+      energy:
+        type: integer
+      monster:
+        $ref: '#/definitions/models.DungeonMonster'
+      posCol:
+        type: integer
+      posRow:
+        type: integer
+    type: object
+  api.dungeonTreasuresResponse:
+    properties:
+      treasures:
+        items:
+          $ref: '#/definitions/models.DungeonTreasureUnlock'
+        type: array
+    type: object
+  api.dungeonsResponse:
+    properties:
+      dungeons:
+        items:
+          $ref: '#/definitions/models.Dungeon'
+        type: array
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.expeditionCompleteResponse:
+    properties:
+      completedCount:
+        type: integer
+      currentLevel:
+        type: integer
+      level:
+        type: integer
+      levels:
+        items:
+          $ref: '#/definitions/models.ExpeditionLevel'
+        type: array
+      totalStars:
+        type: integer
+      xp:
+        type: integer
+      xpEarned:
+        type: integer
+      xpForNextLevel:
+        type: integer
+      xpIntoLevel:
+        type: integer
+    type: object
+  api.expeditionFinishRequest:
+    properties:
+      correctPieces:
+        type: integer
+      elapsedSeconds:
+        type: integer
+    type: object
+  api.failChallengeRequest:
+    properties:
+      correctPieces:
+        description: pieces placed before quitting
+        type: integer
+    type: object
+  api.healthResponse:
+    properties:
+      status:
+        example: ok
+        type: string
+    type: object
+  api.hiddenSecretRevealResponse:
+    properties:
+      completed:
+        type: boolean
+      level:
+        type: integer
+      pointsEarned:
+        description: |-
+          PointsEarned is the unlock points this reveal paid out (the whole picture
+          pays models.HiddenSecretPointsReward on the completing reveal, 0
+          otherwise), and UnlockPoints the resulting balance.
+        type: integer
+      revealed:
+        items:
+          type: integer
+        type: array
+      status:
+        type: string
+      tileCount:
+        type: integer
+      unlockPoints:
+        type: integer
+      xp:
+        type: integer
+      xpEarned:
+        type: integer
+      xpForNextLevel:
+        type: integer
+      xpIntoLevel:
+        type: integer
+    type: object
+  api.hiddenSecretUnlocksResponse:
+    properties:
+      unlocks:
+        items:
+          $ref: '#/definitions/models.HiddenSecretUnlock'
+        type: array
+    type: object
+  api.hiddenSecretsResponse:
+    properties:
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      secrets:
+        items:
+          $ref: '#/definitions/models.HiddenSecret'
+        type: array
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.historyResponse:
+    properties:
+      challenges:
+        items:
+          $ref: '#/definitions/models.HistoryItem'
+        type: array
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.leaderboardResponse:
+    properties:
+      entries:
+        items:
+          $ref: '#/definitions/models.LeaderboardEntry'
+        type: array
+      me:
+        $ref: '#/definitions/models.LeaderboardEntry'
+    type: object
+  api.libraryBatchResponse:
+    properties:
+      failed:
+        items:
+          $ref: '#/definitions/api.libraryUploadFailure'
+        type: array
+      images:
+        items:
+          $ref: '#/definitions/models.Image'
+        type: array
+    type: object
+  api.libraryResponse:
+    properties:
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      images:
+        items:
+          $ref: '#/definitions/models.Image'
+        type: array
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.libraryUploadFailure:
+    properties:
+      error:
+        type: string
+      filename:
+        type: string
+    type: object
+  api.loginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  api.notificationsResponse:
+    properties:
+      challenge:
+        $ref: '#/definitions/models.ChallengeView'
+      hasNew:
+        description: HasNew is true when today's challenge exists and the user hasn't
+          played it.
+        type: boolean
+    type: object
+  api.pointsResponse:
+    properties:
+      points:
+        type: integer
+    type: object
+  api.purchaseResponse:
+    properties:
+      expeditionStars:
+        type: integer
+      points:
+        type: integer
+    type: object
+  api.readyResponse:
+    properties:
+      checks:
+        additionalProperties:
+          type: string
+        type: object
+      status:
+        example: ready
+        type: string
+    type: object
+  api.registerRequest:
+    properties:
+      confirmPassword:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+  api.resultsResponse:
+    properties:
+      results:
+        items:
+          $ref: '#/definitions/models.ChallengeResult'
+        type: array
+    type: object
+  api.spendPointsRequest:
+    properties:
+      amount:
+        type: integer
+    type: object
+  api.storiesResponse:
+    properties:
+      hasMore:
+        description: |-
+          HasMore says whether another page exists — what an infinite-scrolling
+          client actually needs, so it never has to do the arithmetic.
+        type: boolean
+      limit:
+        description: Limit is the window size actually applied; omitted when unpaginated.
+        type: integer
+      page:
+        description: Page is 1-based; omitted when the caller asked for no page.
+        type: integer
+      stories:
+        items:
+          $ref: '#/definitions/models.Story'
+        type: array
+      total:
+        description: Total is the row count across every page.
+        type: integer
+    type: object
+  api.storyCompleteResponse:
+    properties:
+      completed:
+        type: boolean
+      level:
+        type: integer
+      xp:
+        type: integer
+      xpEarned:
+        type: integer
+      xpForNextLevel:
+        type: integer
+      xpIntoLevel:
+        type: integer
+    type: object
+  api.versionResponse:
+    properties:
+      build_date:
+        type: string
+      commit:
+        type: string
+      env:
+        example: production
+        type: string
+      go_version:
+        example: go1.25.0
+        type: string
+      uptime_seconds:
+        example: 3600
+        type: integer
+      version:
+        example: 1.0.0
+        type: string
+    type: object
+  httpx.ErrorBody:
+    properties:
+      error:
+        $ref: '#/definitions/httpx.ErrorDetail'
+    type: object
+  httpx.ErrorDetail:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      request_id:
+        type: string
+    type: object
+  models.Achievements:
+    properties:
+      firstPiece:
+        type: boolean
+      jigsawKing:
+        type: boolean
+      speedDemon:
+        type: boolean
+    type: object
+  models.AdminChallengeView:
+    properties:
+      category:
+        type: string
+      challengeDate:
+        type: string
+      challengeEventsEnabled:
+        description: |-
+          ChallengeEventsEnabled turns on the in-game disruption events (ink splash,
+          fog, earthquake, quick countdown) for this challenge. Same value for every
+          player attempting the day, so the shared leaderboard stays comparable.
+        type: boolean
+      createdAt:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      image:
+        $ref: '#/definitions/models.Image'
+      playSeconds:
+        type: integer
+      quizCorrectOption:
+        type: integer
+      quizOptionA:
+        type: string
+      quizOptionB:
+        type: string
+      quizQuestion:
+        description: |-
+          The bonus quiz asked after the puzzle is solved: one question, two
+          options, one of them right. Optional — an empty question means the
+          manager configured no quiz for this challenge.
+        type: string
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.AdminDungeon:
+    properties:
+      active:
+        type: boolean
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      monsters:
+        items:
+          $ref: '#/definitions/models.DungeonMonster'
+        type: array
+      path:
+        items:
+          $ref: '#/definitions/models.Cell'
+        type: array
+      start:
+        $ref: '#/definitions/models.Cell'
+      title:
+        type: string
+      treasure:
+        $ref: '#/definitions/models.Cell'
+      treasureGridCols:
+        type: integer
+      treasureGridRows:
+        type: integer
+      treasureImageId:
+        type: string
+      treasureImageUrl:
+        type: string
+      treasurePlaySeconds:
+        type: integer
+      xpReward:
+        type: integer
+    type: object
+  models.AdminHiddenSecret:
+    properties:
+      active:
+        type: boolean
+      id:
+        type: string
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      subtitle:
+        type: string
+      thumbUrl:
+        description: ThumbURL is [ImageURL] sized for the admin list row.
+        type: string
+      tileGridCols:
+        type: integer
+      tileGridRows:
+        type: integer
+      tilePlaySeconds:
+        type: integer
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.Cell:
+    properties:
+      col:
+        type: integer
+      row:
+        type: integer
+    type: object
+  models.ChallengeResult:
+    properties:
+      challengeId:
+        type: string
+      correctPieces:
+        type: integer
+      elapsedSeconds:
+        type: integer
+      finishedAt:
+        type: string
+      id:
+        type: string
+      quizAnswer:
+        description: |-
+          QuizAnswer is the option the user picked for the bonus question (0 or 1),
+          nil while unanswered. The bonus point is granted on the single
+          transition from nil to a value.
+        type: integer
+      startedAt:
+        type: string
+      status:
+        type: string
+    type: object
+  models.ChallengeView:
+    properties:
+      category:
+        type: string
+      challengeDate:
+        type: string
+      challengeEventsEnabled:
+        description: |-
+          ChallengeEventsEnabled turns on the in-game disruption events (ink splash,
+          fog, earthquake, quick countdown) for this challenge. Same value for every
+          player attempting the day, so the shared leaderboard stays comparable.
+        type: boolean
+      createdAt:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      image:
+        $ref: '#/definitions/models.Image'
+      playSeconds:
+        type: integer
+      quizOptionA:
+        type: string
+      quizOptionB:
+        type: string
+      quizQuestion:
+        description: |-
+          The bonus quiz asked after the puzzle is solved: one question, two
+          options, one of them right. Optional — an empty question means the
+          manager configured no quiz for this challenge.
+        type: string
+      result:
+        $ref: '#/definitions/models.ChallengeResult'
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.CheckinState:
+    properties:
+      challengeDates:
+        description: days a daily challenge was completed
+        items:
+          type: string
+        type: array
+      checkedInToday:
+        type: boolean
+      checkinDates:
+        description: '"YYYY-MM-DD"'
+        items:
+          type: string
+        type: array
+      streak:
+        type: integer
+      unlockPoints:
+        type: integer
+      weekCheckedIn:
+        type: integer
+      weekTotal:
+        type: integer
+    type: object
+  models.CollectionItem:
+    properties:
+      addedAt:
+        type: string
+      id:
+        type: string
+      image:
+        $ref: '#/definitions/models.Image'
+    type: object
+  models.DailyChallenge:
+    properties:
+      category:
+        type: string
+      challengeDate:
+        type: string
+      challengeEventsEnabled:
+        description: |-
+          ChallengeEventsEnabled turns on the in-game disruption events (ink splash,
+          fog, earthquake, quick countdown) for this challenge. Same value for every
+          player attempting the day, so the shared leaderboard stays comparable.
+        type: boolean
+      createdAt:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      image:
+        $ref: '#/definitions/models.Image'
+      playSeconds:
+        type: integer
+      quizOptionA:
+        type: string
+      quizOptionB:
+        type: string
+      quizQuestion:
+        description: |-
+          The bonus quiz asked after the puzzle is solved: one question, two
+          options, one of them right. Optional — an empty question means the
+          manager configured no quiz for this challenge.
+        type: string
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.Dungeon:
+    properties:
+      active:
+        type: boolean
+      completed:
+        type: boolean
+      id:
+        type: string
+      monsterCount:
+        type: integer
+      started:
+        type: boolean
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.DungeonDetail:
+    properties:
+      energy:
+        type: integer
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      monsters:
+        items:
+          $ref: '#/definitions/models.DungeonMonster'
+        type: array
+      path:
+        items:
+          $ref: '#/definitions/models.Cell'
+        type: array
+      progress:
+        $ref: '#/definitions/models.DungeonProgress'
+      start:
+        $ref: '#/definitions/models.Cell'
+      title:
+        type: string
+      treasure:
+        $ref: '#/definitions/models.Cell'
+      treasureGridCols:
+        type: integer
+      treasureGridRows:
+        type: integer
+      treasureImageId:
+        type: string
+      treasureImageUrl:
+        type: string
+      treasurePlaySeconds:
+        type: integer
+      xpReward:
+        type: integer
+    type: object
+  models.DungeonMonster:
+    properties:
+      col:
+        type: integer
+      defeated:
+        type: boolean
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      playSeconds:
+        type: integer
+      row:
+        type: integer
+    type: object
+  models.DungeonMonsterInput:
+    properties:
+      col:
+        type: integer
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      imageId:
+        type: string
+      playSeconds:
+        type: integer
+      row:
+        type: integer
+    type: object
+  models.DungeonProgress:
+    properties:
+      completed:
+        type: boolean
+      defeated:
+        items:
+          type: string
+        type: array
+      posCol:
+        type: integer
+      posRow:
+        type: integer
+      visited:
+        items:
+          $ref: '#/definitions/models.Cell'
+        type: array
+    type: object
+  models.DungeonTreasureUnlock:
+    properties:
+      dungeonId:
+        type: string
+      dungeonTitle:
+        type: string
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      unlockedAt:
+        type: string
+    type: object
+  models.ExpeditionLevel:
+    properties:
+      category:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      index:
+        type: integer
+      playSeconds:
+        type: integer
+      requiredStars:
+        type: integer
+      showOnMain:
+        description: |-
+          ShowOnMain is false for a level that lives only in a themed collection.
+          The client sends every level in one list and splits on this flag, so the
+          collections stay a pure client-side filter (as they already were).
+        type: boolean
+      star:
+        type: integer
+      starsEarned:
+        type: integer
+      status:
+        description: locked | available | in_progress | completed | failed
+        type: string
+      thumbUrl:
+        description: ThumbURL is [ImageURL] sized for a level card on the campaign
+          map.
+        type: string
+      unlocked:
+        type: boolean
+      xpReward:
+        description: |-
+          XPReward is what a first clear of this level pays out, surfaced so the
+          campaign map can show the reward before the level is played.
+        type: integer
+    type: object
+  models.ExpeditionState:
+    properties:
+      completedCount:
+        type: integer
+      currentLevel:
+        type: integer
+      levels:
+        items:
+          $ref: '#/definitions/models.ExpeditionLevel'
+        type: array
+      totalStars:
+        type: integer
+    type: object
+  models.HiddenSecret:
+    properties:
+      active:
+        type: boolean
+      completed:
+        type: boolean
+      id:
+        type: string
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      pointsReward:
+        type: integer
+      revealedCount:
+        type: integer
+      subtitle:
+        type: string
+      thumbUrl:
+        description: ThumbURL is [ImageURL] sized for the list row.
+        type: string
+      tileCount:
+        type: integer
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.HiddenSecretDetail:
+    properties:
+      id:
+        type: string
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      pointsReward:
+        type: integer
+      progress:
+        $ref: '#/definitions/models.HiddenSecretProgress'
+      subtitle:
+        type: string
+      tileCols:
+        type: integer
+      tileGridCols:
+        type: integer
+      tileGridRows:
+        type: integer
+      tilePlaySeconds:
+        type: integer
+      tileRows:
+        type: integer
+      title:
+        type: string
+      xpReward:
+        type: integer
+    type: object
+  models.HiddenSecretProgress:
+    properties:
+      completed:
+        type: boolean
+      revealed:
+        items:
+          type: integer
+        type: array
+    type: object
+  models.HiddenSecretUnlock:
+    properties:
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      secretId:
+        type: string
+      title:
+        type: string
+      unlockedAt:
+        type: string
+    type: object
+  models.HistoryItem:
+    properties:
+      challengeId:
+        type: string
+      correctPieces:
+        type: integer
+      elapsedSeconds:
+        type: integer
+      finishedAt:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      imageId:
+        type: string
+      imageUrl:
+        type: string
+      pieces:
+        type: integer
+      status:
+        type: string
+      thumbUrl:
+        description: ThumbURL is [ImageURL] sized for the Recent Challenges strip.
+        type: string
+      title:
+        type: string
+    type: object
+  models.Image:
+    properties:
+      createdAt:
+        type: string
+      height:
+        type: integer
+      id:
+        type: string
+      isChallenge:
+        type: boolean
+      publicId:
+        type: string
+      thumbUrl:
+        description: |-
+          ThumbURL delivers the same picture resized and re-encoded for a list
+          row or grid tile. Clients showing a small copy should read this instead
+          of URL: it is typically a twentieth of the bytes.
+        type: string
+      title:
+        type: string
+      url:
+        type: string
+      width:
+        type: integer
+    type: object
+  models.LeaderboardEntry:
+    properties:
+      isMe:
+        type: boolean
+      level:
+        type: integer
+      name:
+        type: string
+      rank:
+        type: integer
+      score:
+        type: integer
+      userId:
+        type: string
+    type: object
+  models.Story:
+    properties:
+      author:
+        type: string
+      category:
+        type: string
+      completedPages:
+        description: for the requesting user
+        type: integer
+      coverThumbUrl:
+        description: CoverThumbURL is [CoverURL] sized for the library's cover cards.
+        type: string
+      coverUrl:
+        type: string
+      createdAt:
+        type: string
+      description:
+        type: string
+      earnedXp:
+        description: xp earned from this story
+        type: integer
+      id:
+        type: string
+      levelRequired:
+        description: |-
+          LevelRequired is the player level needed before the story can be played.
+          1 means open to everyone.
+        type: integer
+      title:
+        type: string
+      totalPages:
+        type: integer
+      unlocked:
+        description: for the requesting user
+        type: boolean
+    type: object
+  models.StoryDetail:
+    properties:
+      author:
+        type: string
+      category:
+        type: string
+      completedPages:
+        description: for the requesting user
+        type: integer
+      coverThumbUrl:
+        description: CoverThumbURL is [CoverURL] sized for the library's cover cards.
+        type: string
+      coverUrl:
+        type: string
+      createdAt:
+        type: string
+      description:
+        type: string
+      earnedXp:
+        description: xp earned from this story
+        type: integer
+      id:
+        type: string
+      levelRequired:
+        description: |-
+          LevelRequired is the player level needed before the story can be played.
+          1 means open to everyone.
+        type: integer
+      pages:
+        items:
+          $ref: '#/definitions/models.StoryPage'
+        type: array
+      title:
+        type: string
+      totalPages:
+        type: integer
+      unlocked:
+        description: for the requesting user
+        type: boolean
+    type: object
+  models.StoryPage:
+    properties:
+      completed:
+        description: for the requesting user
+        type: boolean
+      description:
+        type: string
+      gridCols:
+        type: integer
+      gridRows:
+        type: integer
+      id:
+        type: string
+      image:
+        $ref: '#/definitions/models.Image'
+      index:
+        type: integer
+      playSeconds:
+        type: integer
+      storyId:
+        type: string
+      title:
+        type: string
+      unlocked:
+        description: for the requesting user
+        type: boolean
+      xpReward:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      role:
+        type: string
+      updatedAt:
+        type: string
+      xp:
+        type: integer
+    type: object
+  models.UserStats:
+    properties:
+      achievements:
+        $ref: '#/definitions/models.Achievements'
+      completionRate:
+        type: integer
+      highestScore:
+        description: total correct pieces (cumulative)
+        type: integer
+      level:
+        type: integer
+      puzzlesSolved:
+        type: integer
+      rank:
+        type: integer
+      score:
+        description: total correct pieces (ranking)
+        type: integer
+      solvedThisWeek:
+        type: integer
+      title:
+        type: string
+      totalTimeSeconds:
+        type: integer
+      xp:
+        type: integer
+      xpForNextLevel:
+        type: integer
+      xpIntoLevel:
+        type: integer
+    type: object
+info:
+  contact: {}
+  description: |-
+    Backend for the Jigsaw Puzzle app: email/password auth, image
+    collection, admin daily challenges (Cloudinary) and per-day
+    reputation ("Danh vọng").
+  title: Jigsaw Puzzle API
+  version: "1.0"
+paths:
+  /api/v1/admin/challenges:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.adminChallengesResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: List challenges (admin)
+      tags:
+      - admin
+    post:
+      consumes:
+      - multipart/form-data
+      description: Uploads a challenge image to Cloudinary and creates/replaces the
+        daily challenge for a date.
+      parameters:
+      - description: Challenge image (max 15MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Time limit to complete, in seconds
+        in: formData
+        name: playSeconds
+        required: true
+        type: integer
+      - description: Grid columns (default 6)
+        in: formData
+        name: gridCols
+        type: integer
+      - description: Grid rows (default 10)
+        in: formData
+        name: gridRows
+        type: integer
+      - description: Category (Nature/Space/Architecture/Art)
+        in: formData
+        name: category
+        type: string
+      - description: 'Challenge date YYYY-MM-DD (default: next free queue day)'
+        in: formData
+        name: date
+        type: string
+      - description: Optional title
+        in: formData
+        name: title
+        type: string
+      - description: XP awarded on completion (default 100)
+        in: formData
+        name: xpReward
+        type: integer
+      - description: Enable in-game disruption events (default false)
+        in: formData
+        name: challengeEventsEnabled
+        type: boolean
+      - description: Bonus question asked after solving (blank = no quiz)
+        in: formData
+        name: quizQuestion
+        type: string
+      - description: Answer option A (required when quizQuestion is set)
+        in: formData
+        name: quizOptionA
+        type: string
+      - description: Answer option B (required when quizQuestion is set)
+        in: formData
+        name: quizOptionB
+        type: string
+      - description: 'Which option is correct: 0 = A, 1 = B'
+        in: formData
+        name: quizCorrectOption
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.AdminChallengeView'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Create daily challenge (admin)
+      tags:
+      - admin
+  /api/v1/admin/challenges/{id}:
+    put:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Challenge id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New image (optional)
+        in: formData
+        name: file
+        type: file
+      - description: Time limit in seconds
+        in: formData
+        name: playSeconds
+        required: true
+        type: integer
+      - description: Grid columns
+        in: formData
+        name: gridCols
+        type: integer
+      - description: Grid rows
+        in: formData
+        name: gridRows
+        type: integer
+      - description: Category
+        in: formData
+        name: category
+        type: string
+      - description: Title
+        in: formData
+        name: title
+        type: string
+      - description: XP awarded on completion (default 100)
+        in: formData
+        name: xpReward
+        type: integer
+      - description: Enable in-game disruption events (default false)
+        in: formData
+        name: challengeEventsEnabled
+        type: boolean
+      - description: Bonus question asked after solving (blank clears the quiz)
+        in: formData
+        name: quizQuestion
+        type: string
+      - description: Answer option A (required when quizQuestion is set)
+        in: formData
+        name: quizOptionA
+        type: string
+      - description: Answer option B (required when quizQuestion is set)
+        in: formData
+        name: quizOptionB
+        type: string
+      - description: 'Which option is correct: 0 = A, 1 = B'
+        in: formData
+        name: quizCorrectOption
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AdminChallengeView'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Update daily challenge (admin)
+      tags:
+      - admin
+  /api/v1/admin/dungeons:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.adminDungeonsResponse'
+      security:
+      - BearerAuth: []
+      summary: List dungeons (admin)
+      tags:
+      - admin
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dungeon layout
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.adminDungeonRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.AdminDungeon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Create dungeon (admin)
+      tags:
+      - admin
+  /api/v1/admin/dungeons/{id}:
+    delete:
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Delete dungeon (admin)
+      tags:
+      - admin
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dungeon layout
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.adminDungeonRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AdminDungeon'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Update dungeon (admin)
+      tags:
+      - admin
+  /api/v1/admin/expedition:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole campaign
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.adminExpeditionResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: List expedition levels (admin)
+      tags:
+      - admin
+    post:
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.adminExpeditionLevel'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Create an expedition level (admin)
+      tags:
+      - admin
+  /api/v1/admin/expedition/{level}:
+    delete:
+      parameters:
+      - description: Level index (must be the last level)
+        in: path
+        name: level
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: deleted
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Delete the last expedition level (admin)
+      tags:
+      - admin
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Level index (1-100)
+        in: path
+        name: level
+        required: true
+        type: integer
+      - description: Image file (max 15MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.adminExpeditionLevel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Upload expedition level image (admin)
+      tags:
+      - admin
+  /api/v1/admin/expedition/{level}/config:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Level index (1-100)
+        in: path
+        name: level
+        required: true
+        type: integer
+      - description: Level game config
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.adminExpeditionConfigRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.adminExpeditionLevel'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Update expedition level config (admin)
+      tags:
+      - admin
+  /api/v1/admin/hidden-secrets:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.adminHiddenSecretsResponse'
+      security:
+      - BearerAuth: []
+      summary: List hidden secrets (admin)
+      tags:
+      - admin
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Hidden secret
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.adminHiddenSecretRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.AdminHiddenSecret'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Create hidden secret (admin)
+      tags:
+      - admin
+  /api/v1/admin/hidden-secrets/{id}:
+    delete:
+      parameters:
+      - description: Hidden secret id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Delete hidden secret (admin)
+      tags:
+      - admin
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Hidden secret id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Hidden secret
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.adminHiddenSecretRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.AdminHiddenSecret'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Update hidden secret (admin)
+      tags:
+      - admin
+  /api/v1/admin/library:
+    get:
+      parameters:
+      - description: Search by name
+        in: query
+        name: q
+        type: string
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.libraryResponse'
+      security:
+      - BearerAuth: []
+      summary: List image library (admin)
+      tags:
+      - admin
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Image (max 15MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Image name (defaults to filename)
+        in: formData
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Image'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Upload library image (admin)
+      tags:
+      - admin
+  /api/v1/admin/library/{id}:
+    delete:
+      parameters:
+      - description: Image id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Remove library image (admin)
+      tags:
+      - admin
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Image id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New title {title}
+        in: body
+        name: request
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Rename library image (admin)
+      tags:
+      - admin
+  /api/v1/admin/library/batch:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Images (multiple, max 15MB each, 100MB total)
+        in: formData
+        name: files
+        required: true
+        type: file
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.libraryBatchResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Upload library images in batch (admin)
+      tags:
+      - admin
+  /api/v1/admin/stories:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.storiesResponse'
+      security:
+      - BearerAuth: []
+      summary: List stories (admin)
+      tags:
+      - admin
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Cover image (max 15MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Story title
+        in: formData
+        name: title
+        required: true
+        type: string
+      - description: Category
+        in: formData
+        name: category
+        type: string
+      - description: Author
+        in: formData
+        name: author
+        type: string
+      - description: Description
+        in: formData
+        name: description
+        type: string
+      - description: Player level needed to play it (default 1)
+        in: formData
+        name: levelRequired
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Story'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Create story (admin)
+      tags:
+      - admin
+  /api/v1/admin/stories/{id}/config:
+    put:
+      consumes:
+      - application/json
+      parameters:
+      - description: Story id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Story configuration
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.adminStoryConfigRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Story'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Update story config (admin)
+      tags:
+      - admin
+  /api/v1/admin/stories/{id}/pages:
+    post:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Story id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page image (max 15MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Chapter/page title
+        in: formData
+        name: title
+        type: string
+      - description: Narrative text
+        in: formData
+        name: description
+        type: string
+      - description: Grid columns (default 4)
+        in: formData
+        name: gridCols
+        type: integer
+      - description: Grid rows (default 6)
+        in: formData
+        name: gridRows
+        type: integer
+      - description: Time limit in seconds (default 300)
+        in: formData
+        name: playSeconds
+        type: integer
+      - description: XP awarded (default 100)
+        in: formData
+        name: xpReward
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.StoryPage'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Add story page (admin)
+      tags:
+      - admin
+  /api/v1/admin/stories/{id}/pages/{pageId}:
+    put:
+      consumes:
+      - multipart/form-data
+      parameters:
+      - description: Story id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page id (UUID)
+        in: path
+        name: pageId
+        required: true
+        type: string
+      - description: New image (optional)
+        in: formData
+        name: file
+        type: file
+      - description: Chapter/page title
+        in: formData
+        name: title
+        type: string
+      - description: Narrative text
+        in: formData
+        name: description
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Update story page (admin)
+      tags:
+      - admin
+  /api/v1/auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates with email + password and returns a session JWT.
+      parameters:
+      - description: Credentials
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.loginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.authResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      summary: Login
+      tags:
+      - auth
+  /api/v1/auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Creates an account with email + password (password is bcrypt-hashed)
+        and returns a session JWT.
+      parameters:
+      - description: Registration
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.registerRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/api.authResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      summary: Register
+      tags:
+      - auth
+  /api/v1/challenges:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.challengesResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: List recent challenges
+      tags:
+      - challenges
+  /api/v1/challenges/{id}/complete:
+    post:
+      consumes:
+      - application/json
+      description: Marks an in-progress challenge as completed (win) and awards XP.
+      parameters:
+      - description: Challenge id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Elapsed seconds and correct pieces
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/api.completeChallengeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.completeChallengeResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Complete challenge
+      tags:
+      - challenges
+  /api/v1/challenges/{id}/fail:
+    post:
+      consumes:
+      - application/json
+      description: Marks an in-progress challenge as failed (user quit or lost); records
+        pieces placed so far.
+      parameters:
+      - description: Challenge id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Correct pieces placed so far
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/api.failChallengeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ChallengeResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Fail challenge
+      tags:
+      - challenges
+  /api/v1/challenges/{id}/quiz:
+    get:
+      description: The two-option bonus question for a challenge, plus whether the
+        user already answered it. 404 when the challenge has no quiz.
+      parameters:
+      - description: Challenge id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.challengeQuizResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Challenge bonus quiz
+      tags:
+      - challenges
+    post:
+      consumes:
+      - application/json
+      description: Records the answer to the bonus question; a correct first answer
+        grants +1 unlock point.
+      parameters:
+      - description: Challenge id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Chosen option (0 = A, 1 = B)
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.answerQuizRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.challengeQuizResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Answer challenge bonus quiz
+      tags:
+      - challenges
+  /api/v1/challenges/{id}/start:
+    post:
+      description: Marks the challenge in_progress. Idempotent; never resets a finished
+        result.
+      parameters:
+      - description: Challenge id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ChallengeResult'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Start challenge
+      tags:
+      - challenges
+  /api/v1/challenges/today:
+    get:
+      description: Returns today's daily challenge along with the user's result (if
+        any).
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ChallengeView'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Today's challenge
+      tags:
+      - challenges
+  /api/v1/checkin:
+    get:
+      description: Unlock points, streak and check-in/challenge dates for the calendar.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CheckinState'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Check-in calendar
+      tags:
+      - checkin
+    post:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.CheckinState'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Check in today
+      tags:
+      - checkin
+  /api/v1/collection:
+    get:
+      description: Returns the authenticated user's saved images.
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.collectionResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: List collection
+      tags:
+      - collection
+    post:
+      consumes:
+      - application/json
+      description: Saves an already-stored image (e.g. a completed challenge) to the
+        user's collection.
+      parameters:
+      - description: Image id
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.addToCollectionRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Add existing image to collection
+      tags:
+      - collection
+  /api/v1/collection/{imageId}:
+    delete:
+      parameters:
+      - description: Image id (UUID)
+        in: path
+        name: imageId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Remove image from collection
+      tags:
+      - collection
+  /api/v1/collection/upload:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Uploads an image to Cloudinary and adds it to the user's collection.
+      parameters:
+      - description: Image file (max 15MB)
+        in: formData
+        name: file
+        required: true
+        type: file
+      - description: Optional title
+        in: formData
+        name: title
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.Image'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "502":
+          description: Bad Gateway
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Upload image to collection
+      tags:
+      - collection
+  /api/v1/dungeon-treasures:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.dungeonTreasuresResponse'
+      security:
+      - BearerAuth: []
+      summary: List unlocked dungeon treasures
+      tags:
+      - dungeons
+  /api/v1/dungeons:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.dungeonsResponse'
+      security:
+      - BearerAuth: []
+      summary: List dungeons
+      tags:
+      - dungeons
+  /api/v1/dungeons/{id}:
+    get:
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.DungeonDetail'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Get dungeon
+      tags:
+      - dungeons
+  /api/v1/dungeons/{id}/complete:
+    post:
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.dungeonCompleteResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Complete dungeon
+      tags:
+      - dungeons
+  /api/v1/dungeons/{id}/monsters/{monsterId}/complete:
+    post:
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Monster id (UUID)
+        in: path
+        name: monsterId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.dungeonDefeatResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Defeat dungeon monster
+      tags:
+      - dungeons
+  /api/v1/dungeons/{id}/move:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Target cell
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.dungeonMoveRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.dungeonMoveResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "422":
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Move in dungeon
+      tags:
+      - dungeons
+  /api/v1/dungeons/{id}/retreat:
+    post:
+      parameters:
+      - description: Dungeon id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.dungeonMoveResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Retreat in dungeon
+      tags:
+      - dungeons
+  /api/v1/expedition:
+    get:
+      description: 100-level campaign with per-user progress, stars and unlock state.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExpeditionState'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Expedition campaign
+      tags:
+      - expedition
+  /api/v1/expedition/{level}/complete:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Level index (1-100)
+        in: path
+        name: level
+        required: true
+        type: integer
+      - description: Elapsed + correct pieces
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/api.expeditionFinishRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.expeditionCompleteResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Complete expedition level
+      tags:
+      - expedition
+  /api/v1/expedition/{level}/fail:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Level index (1-100)
+        in: path
+        name: level
+        required: true
+        type: integer
+      - description: Correct pieces so far
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/api.expeditionFinishRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExpeditionState'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Fail expedition level
+      tags:
+      - expedition
+  /api/v1/expedition/{level}/start:
+    post:
+      parameters:
+      - description: Level index (1-100)
+        in: path
+        name: level
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExpeditionState'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Start expedition level
+      tags:
+      - expedition
+  /api/v1/hidden-secret-unlocks:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.hiddenSecretUnlocksResponse'
+      security:
+      - BearerAuth: []
+      summary: List unlocked hidden secrets
+      tags:
+      - hidden-secrets
+  /api/v1/hidden-secrets:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.hiddenSecretsResponse'
+      security:
+      - BearerAuth: []
+      summary: List hidden secrets
+      tags:
+      - hidden-secrets
+  /api/v1/hidden-secrets/{id}:
+    get:
+      parameters:
+      - description: Hidden secret id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.HiddenSecretDetail'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Get hidden secret
+      tags:
+      - hidden-secrets
+  /api/v1/hidden-secrets/{id}/tiles/{tileIndex}/reveal:
+    post:
+      parameters:
+      - description: Hidden secret id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Tile index (0-8, row-major)
+        in: path
+        name: tileIndex
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.hiddenSecretRevealResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Reveal hidden secret tile
+      tags:
+      - hidden-secrets
+  /api/v1/leaderboard:
+    get:
+      description: Top players by score (total correctly-placed pieces) plus the caller's
+        rank.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.leaderboardResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Global ranking
+      tags:
+      - me
+  /api/v1/me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Current user
+      tags:
+      - me
+  /api/v1/me/history:
+    get:
+      description: Recently played challenges (for the "Recent Challenges" list).
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.historyResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: My challenge history
+      tags:
+      - me
+  /api/v1/me/notifications:
+    get:
+      description: Returns whether today's challenge exists and is unplayed by the
+        user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.notificationsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Notifications
+      tags:
+      - me
+  /api/v1/me/points:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.pointsResponse'
+      security:
+      - BearerAuth: []
+      summary: Unlock points balance
+      tags:
+      - me
+  /api/v1/me/points/purchase:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Store product id, source and verification data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/api.confirmPurchaseRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.purchaseResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "402":
+          description: Payment Required
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Confirm an in-app purchase and credit its reward
+      tags:
+      - me
+  /api/v1/me/points/spend:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Amount to spend (default 1)
+        in: body
+        name: request
+        schema:
+          $ref: '#/definitions/api.spendPointsRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.pointsResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Spend unlock points
+      tags:
+      - me
+  /api/v1/me/results:
+    get:
+      description: Returns the user's daily challenge results ("Danh vọng").
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.resultsResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Reputation history
+      tags:
+      - me
+  /api/v1/me/stats:
+    get:
+      description: Level, XP, score, rank, completion rate and achievements for the
+        current user.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserStats'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: My stats
+      tags:
+      - me
+  /api/v1/stories:
+    get:
+      parameters:
+      - description: Page number (1-based); needs limit or defaults to 8
+        in: query
+        name: page
+        type: integer
+      - description: Rows per page; omit for the whole list
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.storiesResponse'
+      security:
+      - BearerAuth: []
+      summary: List stories
+      tags:
+      - stories
+  /api/v1/stories/{id}:
+    get:
+      parameters:
+      - description: Story id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.StoryDetail'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Get story
+      tags:
+      - stories
+  /api/v1/stories/{id}/pages/{pageId}/complete:
+    post:
+      parameters:
+      - description: Story id (UUID)
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Page id (UUID)
+        in: path
+        name: pageId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.storyCompleteResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      security:
+      - BearerAuth: []
+      summary: Complete story page
+      tags:
+      - stories
+  /healthz:
+    get:
+      description: Returns 200 while the process is running. Checks no dependencies.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.healthResponse'
+      summary: Liveness probe
+      tags:
+      - ops
+  /metrics:
+    get:
+      description: Prometheus/OpenMetrics exposition. Requires a bearer token when
+        METRICS_TOKEN is configured.
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: metrics in Prometheus text format
+          schema:
+            type: string
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/httpx.ErrorBody'
+      summary: Prometheus metrics
+      tags:
+      - ops
+  /readyz:
+    get:
+      description: Verifies dependencies (database). Returns 503 when any check fails.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.readyResponse'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/api.readyResponse'
+      summary: Readiness probe
+      tags:
+      - ops
+  /version:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.versionResponse'
+      summary: Build and runtime information
+      tags:
+      - ops
+securityDefinitions:
+  BearerAuth:
+    description: Type "Bearer" followed by a space and the session token issued by
+      /api/v1/auth/login or /register.
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
